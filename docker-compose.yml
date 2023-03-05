@@ -1,0 +1,50 @@
+version: "2"
+services:
+  api:
+    container_name: tsh-api
+    build: 
+      context: ./
+      dockerfile: ./api/Dockerfile
+    environment:
+      FLASK_APP: ${FLASK_APP?:}
+      FLASK_ENV: ${FLASK_ENV?:}
+      FLASK_RUN_HOST: ${FLASK_RUN_HOST?:}
+      FLASK_RUN_PORT: ${FLASK_RUN_PORT?:}
+      TORN_API_URL: ${TORN_API_URL?:}
+      SECRET_KEY: ${SECRET_KEY?:}
+    links:
+      - db
+    ports:
+      - "${FLASK_RUN_PORT?:}:${FLASK_RUN_PORT?:}"
+    volumes:
+      - tsh-data:/api/db
+      - .:/api
+  db:
+    container_name: tsh-db
+    image: mysql:5.7
+    ports:
+      - "${DB_PORT?:}:${DB_PORT?:}"
+    environment:
+      MYSQL_ROOT_USER: ${DB_USER?:}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS?:}
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d/:ro
+  pma:
+    container_name: tsh-pma
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: ${DB_PORT?:}
+    restart: always
+    ports:
+      - "${PMA_PORT?:}:${PMA_PORT?:}"
+
+networks:
+  tsh:
+
+volumes:
+  tsh-data:
+
