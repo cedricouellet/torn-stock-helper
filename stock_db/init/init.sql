@@ -1,29 +1,29 @@
 -- Represents a stock in Torn City
-CREATE TABLE `stock` (
+CREATE TABLE IF NOT EXISTS `stock` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `torn_id` INT UNSIGNED NOT NULL UNIQUE,
     `name` VARCHAR(100) NOT NULL,
     `acronym` VARCHAR(3) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+    `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Represents the snapshot, or saved state of a stock
-CREATE TABLE `snapshot` (
+CREATE TABLE IF NOT EXISTS `snapshot` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `stock_id` INT UNSIGNED NOT NULL, 
     `date` DATETIME NOT NULL DEFAULT NOW(),
-    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `timestamp` INT UNSIGNED NOT NULL,
     `open_price` DECIMAL(10, 2) NOT NULL,
     `high_price` DECIMAL(10, 2) NOT NULL,
     `low_price` DECIMAL(10, 2) NOT NULL,
     `close_price` DECIMAL(10, 2) NOT NULL,
     `volume` BIGINT(20) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    INDEX `date` (`date` ASC),
-    INDEX `stock_id` (`stock_id` ASC),
-    CONSTRAINT `fk_stock_id`
+    `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `ix_date` (`date` ASC),
+    INDEX `ix_stock_id` (`stock_id` ASC),
+    CONSTRAINT `fk_snapshot_stock`
         FOREIGN KEY (`stock_id`)
         REFERENCES `stock` (`id`)
         ON UPDATE NO ACTION
@@ -32,16 +32,16 @@ CREATE TABLE `snapshot` (
 );
 
 -- Represents a generated prediction for a stock
-CREATE TABLE `prediction` (
+CREATE TABLE IF NOT EXISTS `prediction` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `stock_id` INT UNSIGNED NOT NULL,
     `date` DATETIME NOT NULL DEFAULT NOW(),
     `close_price` DECIMAL(10, 2) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    INDEX `date` (`date` ASC),
-    INDEX `stock_id` (`stock_id` ASC),
-        CONSTRAINT `fk_stock_id`
+    `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `ix_date` (`date` ASC),
+    INDEX `ix_stock_id` (`stock_id` ASC),
+    CONSTRAINT `fk_prediction_stock`
         FOREIGN KEY (`stock_id`)
         REFERENCES `stock` (`id`)
         ON UPDATE NO ACTION

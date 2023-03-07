@@ -1,26 +1,33 @@
 version: "2"
 services:
-  api:
-    container_name: tsh-api
+  tsh-stock-api:
+    container_name: tsh-stock-api
     build: 
-      context: ./
-      dockerfile: ./api/Dockerfile
+      context: .
+      dockerfile: stock_api.dockerfile
     environment:
       FLASK_APP: ${FLASK_APP?:}
       FLASK_ENV: ${FLASK_ENV?:}
       FLASK_RUN_HOST: ${FLASK_RUN_HOST?:}
       FLASK_RUN_PORT: ${FLASK_RUN_PORT?:}
+      
       TORN_API_URL: ${TORN_API_URL?:}
       SECRET_KEY: ${SECRET_KEY?:}
-    links:
-      - db
+      
+      DB_PORT: ${DB_PORT?:}
+      DB_HOST: ${DB_HOST?:}
+      DB_DATABASE: ${DB_DATABASE?:}
+      DB_PASS: ${DB_PASS?:}
+      DB_USER: ${DB_USER?:}
+    depends_on:
+      - tsh-stock-db
     ports:
       - "${FLASK_RUN_PORT?:}:${FLASK_RUN_PORT?:}"
     volumes:
-      # - tsh-data:/api/db
-      - .:/api
-  db:
-    container_name: tsh-db
+      - ./stock_api:/stock_api
+      - ./stock_lib:/stock_lib
+  tsh-stock-db:
+    container_name: tsh-stock-db
     image: mysql:5.7
     ports:
       - "${DB_PORT?:}:${DB_PORT?:}"
@@ -30,14 +37,13 @@ services:
       MYSQL_HOST: ${DB_HOST?:}
       MYSQL_DATABASE: ${DB_DATABASE?:}
     volumes:
-      # - ./db/mysql:/var/lib/mysql
       - tsh-data:/var/lib/mysql
-      - ./db/init:/docker-entrypoint-initdb.d/:ro
-  pma:
-    container_name: tsh-pma
+      - ./stock_db/init/:/docker-entrypoint-initdb.d/:ro
+  tsh-phpmyadmin:
+    container_name: tsh-phpmyadmin
     image: phpmyadmin/phpmyadmin
-    links:
-      - db
+    depends_on:
+      - tsh-stock-db
     environment:
       PMA_HOST: ${DB_HOST?:}
       PMA_PORT: ${DB_PORT?:}
