@@ -6,6 +6,3 @@
 
 # Python cache
 **/__pycache__/
-
-# MySQL data
-db/mysql/
