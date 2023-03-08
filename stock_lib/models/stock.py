@@ -1,4 +1,4 @@
-from stock_lib.database import Base
+from stock_lib.models import Base
 
 class Stock(Base):
     __tablename__ = 'stock'

@@ -1,4 +1,4 @@
-from stock_lib.database import Base
+from stock_lib.models import Base
 
 class Snapshot(Base):
     __tablename__ = 'snapshot'
