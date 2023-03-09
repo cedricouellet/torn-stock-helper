@@ -1,8 +1,5 @@
 FROM python:3.6
 
-# Set home
-ENV HOME /root
-
 # Update dependencies, install cron
 RUN apt-get update && apt-get install -y cron
 
@@ -16,14 +13,14 @@ RUN rm requirements.txt
 # Move to root
 WORKDIR /
 
-# Add cron to jobs (with permissions)
-ADD stock_worker/worker_cron /etc/cron.d
-RUN chmod 0644 /etc/cron.d/worker_cron
-
 # Add worker and runner (with permissions)
 ADD stock_worker/worker.py .
 ADD stock_worker/runner.py .
-RUN chmod a+rwx runner.py worker.py
+RUN chmod a+x runner.py worker.py
+
+# Add cron to jobs (with permissions)
+ADD stock_worker/worker_cron /etc/cron.d
+RUN chmod 0644 /etc/cron.d/worker_cron
 
 # Create log directory (supress output if already exists)
 RUN mkdir /var/log/worker >> /dev/null 2>&1
