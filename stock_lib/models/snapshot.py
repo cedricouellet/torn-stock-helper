@@ -1,10 +1,18 @@
 from stock_lib.models import Base
 
 class Snapshot(Base):
+    '''
+    A model representing a stock snapshot.
+    '''
+        
     __tablename__ = 'snapshot'
     
     @property
     def json(self):
+        '''
+        The json representation of the snapshot
+        '''
+        
         if self is None:
             return None
         
@@ -23,5 +31,15 @@ class Snapshot(Base):
         }
     
     @classmethod
-    def list_json(cls, *snapshots):
+    def list_json(cls, *snapshots) -> list[dict]:
+        '''
+        Represent one or more snapshots into json format
+        
+            Paremeters:
+                `snapshots`: One or more snapshots
+
+            Returns:
+                A list of json objects
+        '''
+                
         return [snapshot.json for snapshot in snapshots]

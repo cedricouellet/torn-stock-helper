@@ -1,10 +1,18 @@
 from stock_lib.models import Base
 
 class Prediction(Base):
+    '''
+    A model representing a stock prediction.
+    '''
+
     __tablename__ = 'prediction'
 
     @property
-    def json(self):
+    def json(self): 
+        '''
+        The json representation of the prediction
+        '''
+        
         if self is None:
             return None
         
@@ -18,6 +26,16 @@ class Prediction(Base):
         }
     
     @classmethod
-    def list_json(cls, *predictions):
+    def list_json(cls, *predictions) -> list[dict]:
+        '''
+        Represent one or more predictions into json format
+        
+            Paremeters:
+                `predictions`: One or more predictions
+
+            Returns:
+                A list of json objects
+        '''
+
         return [prediction.json for prediction in predictions]
 

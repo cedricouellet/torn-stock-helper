@@ -1,3 +1,7 @@
+'''
+Module containing database initialization logic
+'''
+
 import os
 from sqlalchemy.ext.automap import automap_base as __automap_base
 from sqlalchemy import create_engine as __create_engine
@@ -6,15 +10,22 @@ from sqlalchemy.orm import scoped_session as __scoped_session, sessionmaker as _
 
 # Set SQLALCHEMY_URI according to env
 SQLALCHEMY_URI = f"mysql+pymysql://{os.environ['DB_USER']}:{os.environ['DB_PASS']}@{os.environ.get('DB_HOST')}:{os.environ['DB_PORT']}/{os.environ['DB_DATABASE']}"
+'''The SQLALCHEMY database URI'''
 
 # Create mapper 
 Base = __automap_base()
+'''The base object for database models'''
     
-# Members
+# Engine creation
 __engine = __create_engine(SQLALCHEMY_URI)
+
+# DB session creation
 db =  __scoped_session(__sessionmaker(autocommit=False, autoflush=False, bind=__engine))
+'''The database session object'''
 
 def load_db():
+    '''Load the database'''
+
     # Load models
     import stock_lib.models
     

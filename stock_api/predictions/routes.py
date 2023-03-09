@@ -16,8 +16,8 @@ def index():
 
 @predictions.route('/<int:id>', methods = ['GET'])
 def details(id: int ) -> Response:
-    predictions = db.query(Prediction).get(id)
-    if predictions is None:
+    prediction = db.query(Prediction).get(id)
+    if prediction is None:
         return jsonify(None)
     
-    return jsonify(predictions.json)
+    return jsonify(prediction.json)

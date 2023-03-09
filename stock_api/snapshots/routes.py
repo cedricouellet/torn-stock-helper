@@ -17,8 +17,8 @@ def index():
 
 @snapshots.route('/<int:id>', methods = ['GET'])
 def details(id: int ) -> Response:
-    snapshots = db.query(Snapshot).get(id)
-    if snapshots is None:
+    snapshot = db.query(Snapshot).get(id)
+    if snapshot is None:
         return jsonify(None)
     
-    return jsonify(snapshots.json)
+    return jsonify(snapshot.json)
