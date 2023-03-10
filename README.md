@@ -1,13 +1,11 @@
 <p>
-<a>
-<img href="https://img.shields.io/github/issues-pr-raw/cedricouellet/torn-stock-helper">
-</a>
+<img src="https://img.shields.io/github/issues-pr-raw/cedricouellet/torn-stock-helper">
+<img src="https://img.shields.io/github/issues-raw/cedricouellet/torn-stock-helper">
+<img src="https://img.shields.io/github/last-commit/cedricouellet/torn-stock-helper/main?label=last%20commit%20%28branch%3Dmain%29">
+<img src="https://img.shields.io/github/last-commit/cedricouellet/torn-stock-helper/dev?label=last%20commit%20%28branch%3Ddev%29">
+<img src="https://img.shields.io/github/v/tag/cedricouellet/torn-stock-helper?include_prereleases&sort=semver">
+<img src="https://img.shields.io/github/v/release/cedricouellet/torn-stock-helper?display_name=tag&include_prereleases">
 
-<img href="https://img.shields.io/github/issues-raw/cedricouellet/torn-stock-helper">
-<img href="https://img.shields.io/github/last-commit/cedricouellet/torn-stock-helper/main?label=last%20commit%20%28branch%3Dmain%29">
-<img href="https://img.shields.io/github/last-commit/cedricouellet/torn-stock-helper/dev?label=last%20commit%20%28branch%3Ddev%29">
-<img href="https://img.shields.io/github/v/tag/cedricouellet/torn-stock-helper?include_prereleases&sort=semver">
-<img href="https://img.shields.io/github/v/release/cedricouellet/torn-stock-helper?display_name=tag&include_prereleases">
 </p>
 
 
