@@ -13,4 +13,4 @@ DB_USER=DB_USER_PLACEHOLDER
 # set path, since cron does not have it by default
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 #
-* * * * * python /worker.py >> /var/log/worker/log.txt 2>&1
+0 * * * * python /worker.py >> /var/log/worker/log.txt 2>&1
