@@ -1,4 +1,4 @@
-<p>
+<p align="center">
 <img src="https://img.shields.io/github/issues-pr-raw/cedricouellet/torn-stock-helper">
 <img src="https://img.shields.io/github/issues-raw/cedricouellet/torn-stock-helper">
 <img src="https://img.shields.io/github/last-commit/cedricouellet/torn-stock-helper/main?label=last%20commit%20%28branch%3Dmain%29">
@@ -8,9 +8,7 @@
 
 </p>
 
-
-# torn-stock-helper
-
+# Torn Stock Helper
 A Torn stock market helper application
 
 ## Built With
